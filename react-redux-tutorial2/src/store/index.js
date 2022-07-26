@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 const BUY_CAKE = 'BUY_CAKE';
 const BUY_ICECREAMS = 'BUY_ICECREAMS';
@@ -33,17 +33,44 @@ function buyIceCream(){
 //  }
 // }
 
-const initialState = {
+// const initialState = {
+//     numberOfCakes: 10,
+//     numberOfIceCreams: 20,
+// }
+const initialCakeState = {
     numberOfCakes: 10,
+}
+
+const initialIceCreamState = {
     numberOfIceCreams: 20,
 }
 
-const reducer = (state = initialState, action) => {
+// const reducer = (state = initialState, action) => {
+//     switch(action.type){
+//         case BUY_CAKE: return {
+//             ...state,
+//             numberOfCakes: state.numberOfCakes - 1,
+//         }
+//         case BUY_ICECREAMS: return {
+//             ...state,
+//             numberOfIceCreams: state.numberOfIceCreams - 1,
+//         }
+//         default: return state
+//     }
+// }
+
+const cakeReducer = (state = initialCakeState, action) => {
     switch(action.type){
         case BUY_CAKE: return {
             ...state,
             numberOfCakes: state.numberOfCakes - 1,
         }
+        default: return state
+    }
+}
+
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+    switch(action.type){
         case BUY_ICECREAMS: return {
             ...state,
             numberOfIceCreams: state.numberOfIceCreams - 1,
@@ -52,8 +79,17 @@ const reducer = (state = initialState, action) => {
     }
 }
 
+const rootReducer = combineReducers({
+    cake: cakeReducer,
+    iceCream: iceCreamReducer,
+})
+
+// const store = configureStore({
+//     reducer: reducer,
+// });
+
 const store = configureStore({
-    reducer: reducer,
+    reducer: rootReducer,
 });
 
 //store allows access to the state using getState()
