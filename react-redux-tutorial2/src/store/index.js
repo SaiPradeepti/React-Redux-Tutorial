@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 const BUY_CAKE = 'BUY_CAKE';
+const BUY_ICECREAMS = 'BUY_ICECREAMS';
 
 // action creator - returns an action
 
@@ -8,6 +9,13 @@ function buyCake(){
    return {
     type: BUY_CAKE,
     info: 'First redux action'
+ }
+}
+
+function buyIceCream(){
+   return {
+    type: BUY_ICECREAMS,
+    info: 'Second redux action'
  }
 }
 
@@ -27,6 +35,7 @@ function buyCake(){
 
 const initialState = {
     numberOfCakes: 10,
+    numberOfIceCreams: 20,
 }
 
 const reducer = (state = initialState, action) => {
@@ -34,6 +43,10 @@ const reducer = (state = initialState, action) => {
         case BUY_CAKE: return {
             ...state,
             numberOfCakes: state.numberOfCakes - 1,
+        }
+        case BUY_ICECREAMS: return {
+            ...state,
+            numberOfIceCreams: state.numberOfIceCreams - 1,
         }
         default: return state
     }
@@ -54,6 +67,9 @@ const unsubscribe = store.subscribe(() => console.log('Updated Store',store.getS
 store.dispatch(buyCake())
 store.dispatch(buyCake())
 store.dispatch(buyCake())
+store.dispatch(buyIceCream())
+store.dispatch(buyIceCream())
+
 export default store;
 
 //To unsubscribe the change listener, invoke the function returned by subscribe.
